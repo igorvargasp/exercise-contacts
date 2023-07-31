@@ -98,10 +98,11 @@ const AddContact = ({ contacts, contact, onAddContact, onUpdateContact }) => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="Type your name"
             required
             className={`w-full p-2 border ${
               isNameValid ? "border-gray-300" : "border-red-500"
-            } rounded-md focus:outline-none focus:ring focus:border-blue-300`}
+            } rounded-md focus:outline-none focus:ring focus:border-blue-300 text-black`}
           />
           {!isNameValid && (
             <p className="text-red-500 text-sm">
@@ -115,10 +116,11 @@ const AddContact = ({ contacts, contact, onAddContact, onUpdateContact }) => {
             type="tel"
             value={contactNumber}
             onChange={(e) => setContactNumber(e.target.value)}
+            placeholder="Type your phone number"
             required
             className={`w-full p-2 border ${
               isContactNumberValid ? "border-gray-300" : "border-red-500"
-            } rounded-md focus:outline-none focus:ring focus:border-blue-300`}
+            } rounded-md focus:outline-none focus:ring focus:border-blue-300 text-black`}
           />
           {!isContactNumberValid && (
             <p className="text-red-500 text-sm">
@@ -132,10 +134,11 @@ const AddContact = ({ contacts, contact, onAddContact, onUpdateContact }) => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Type your email"
             required
             className={`w-full p-2 border ${
               isEmailValid ? "border-gray-300" : "border-red-500"
-            } rounded-md focus:outline-none focus:ring focus:border-blue-300`}
+            } rounded-md focus:outline-none focus:ring focus:border-blue-300 text-black`}
           />
           {!isEmailValid && (
             <p className="text-red-500 text-sm">

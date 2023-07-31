@@ -4,6 +4,7 @@ import AddContact from "./pages/AddContact";
 import ConfirmationModal from "./components/ConfirmationModal";
 import ContactDetails from "./pages/ContactDetails";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { contactsData } from "./data/data";
 
 const ContactList = ({ contacts, handleEditContact, onDeleteContact }) => {
   return (
@@ -49,23 +50,20 @@ const ContactList = ({ contacts, handleEditContact, onDeleteContact }) => {
 };
 
 function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(contactsData);
   const [selectedContact, setSelectedContact] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
-    // Fetch contacts from localStorage on initial load
-    const storedContacts = JSON.parse(localStorage.getItem("contacts")) || [];
-    setContacts(storedContacts);
-  }, []); // Run only once during the initial load
+    const storedContacts = JSON.parse(localStorage.getItem("contacts"));
+    setContacts(storedContacts || contactsData);
+  }, []);
 
   useEffect(() => {
-    // Update localStorage whenever contacts state changes
     localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]); // Update localStorage when the contacts state changes
+  }, [contacts]);
 
   const handleAddContact = (newContact) => {
-    console.log(newContact);
     setContacts([...contacts, newContact]);
   };
 
@@ -73,8 +71,12 @@ function App() {
     const updatedContacts = contacts.map((contact) =>
       contact.id === updatedContact.id ? updatedContact : contact
     );
+
     setContacts(updatedContacts);
-    setSelectedContact(null); // Clear the selected contact after updating
+
+    localStorage.setItem("contacts", JSON.stringify(updatedContacts));
+
+    setSelectedContact(null);
   };
 
   const handleEditContact = (contact) => {
@@ -82,11 +84,10 @@ function App() {
   };
 
   const handleDeleteContact = (contact) => {
-    // Filter out the deleted contact from the contacts array
     const filteredContacts = contacts.filter((c) => c.id !== contact.id);
     setContacts(filteredContacts);
-    setSelectedContact(null); // Clear the selected contact after deletion
-    setShowConfirmation(false); // Close the confirmation modal after deletion
+    setSelectedContact(null);
+    setShowConfirmation(false);
   };
 
   return (
